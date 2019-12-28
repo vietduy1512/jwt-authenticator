@@ -11,6 +11,7 @@ using JwtAuthenticator.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using JwtAuthenticator.Middlewares;
 
 namespace JwtAuthenticator
 {
@@ -73,6 +74,9 @@ namespace JwtAuthenticator
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
+
+            app.UseMiddleware<JwtDecoderMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

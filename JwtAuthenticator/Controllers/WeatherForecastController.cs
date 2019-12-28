@@ -8,7 +8,8 @@ using Microsoft.Extensions.Logging;
 
 namespace JwtAuthenticator.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

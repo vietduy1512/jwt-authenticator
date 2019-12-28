@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService'
+import jwt from 'jsonwebtoken';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -53,11 +54,28 @@ export class FetchData extends Component {
   }
 
   async populateWeatherData() {
-    const token = await authService.getAccessToken();
+    //const token = await authService.getAccessToken();
+
     const response = await fetch('weatherforecast', {
-      headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+      //headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        headers: {
+            'MyToken': this.generateToken()
+        }
     });
     const data = await response.json();
     this.setState({ forecasts: data, loading: false });
+  }
+  
+  generateToken() {
+    const secretkey = 'secretkey';
+    var token = jwt.sign(
+      { 
+        "username": "duylev",
+        "expiration": 1516239022
+      },
+      secretkey,
+      { algorithm: 'HS256'}
+    );
+    return token;
   }
 }
