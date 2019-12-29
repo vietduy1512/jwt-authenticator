@@ -68,11 +68,12 @@ export class FetchData extends Component {
   
   generateToken() {
     const secretkey = 'kYp3s5v8y/B?E(H+MbQeThWmZq4t7w9z$C&F)J@NcRfUjXn2r5u8x/A%D*G-KaPdSgVkYp3s6v9y$B&E(H+MbQeThWmZq4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D(G+K';
+    localStorage.setItem("user_session", JSON.stringify({ 
+      "username": "duylev",
+      "expiration": 1516239022
+    }));
     var token = jwt.sign(
-      { 
-        "username": "duylev",
-        "expiration": 1516239022
-      },
+      JSON.parse(localStorage.getItem("user_session")),
       secretkey,
       { algorithm: 'HS256'}
     );
